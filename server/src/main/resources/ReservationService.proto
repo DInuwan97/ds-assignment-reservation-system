@@ -1,0 +1,83 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package ds.assignment.reservation.grpc.generated;
+
+enum Type {
+  SELL = 0;
+  RENT = 1;
+  NEW_ARRIVAL = 2;
+}
+
+message GetStockItemRequest {
+  string itemName = 1;
+}
+
+message GetStockItemResponse {
+  int32 itemId = 1;
+  string itemName = 2;
+  int32 stockQuantity = 3;
+  double unitPrice = 4;
+}
+
+message AddStockItemRequest {
+  int32 itemId = 1;
+  string itemName = 2;
+  int32 stockQuantity = 3;
+  double unitPrice = 4;
+  Type type = 5;
+  bool isSentByPrimary = 6;
+}
+
+message AddStockItemResponse {
+  bool status = 1;
+}
+
+message UpdateStockItemRequest {
+  int32 itemId = 1;
+  string itemName = 2;
+  int32 stockQuantity = 3;
+  double unitPrice = 4;
+  bool isSentByPrimary = 5;
+}
+
+message UpdateStockItemResponse {
+  bool status = 1;
+}
+
+message DeleteStockItemRequest {
+  int32 itemId = 1;
+}
+
+message DeleteStockItemResponse {
+  bool status = 1;
+}
+
+message ReserveItemRequest {
+  string itemName = 1;
+  int32 quantity = 2;
+  bool isSentByPrimary = 3;
+}
+
+message ReserveItemResponse {
+  bool status = 1;
+}
+
+service GetStockItemService {
+  rpc getStockItem(GetStockItemRequest) returns (GetStockItemResponse);
+}
+
+service AddStockItemService {
+  rpc addStockItem(AddStockItemRequest) returns (AddStockItemResponse);
+}
+
+service UpdateStockItemService {
+  rpc updateStockItem(UpdateStockItemRequest) returns (UpdateStockItemResponse);
+}
+
+service DeleteStockItemService {
+  rpc deleteStockItem(DeleteStockItemRequest) returns (DeleteStockItemResponse);
+}
+
+service ReserveItemService {
+  rpc purchaseItem(ReserveItemRequest) returns (ReserveItemResponse);
+}
